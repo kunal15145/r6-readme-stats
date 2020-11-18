@@ -11,10 +11,10 @@ function userData(username) {
 }
 
 module.exports = (req, res) => {
-    const {
-      username
-    } = req.query;
-    userData(username).then(ret => {
-      return res.send(JSON.parse(ret.data.toString()))
-    })
-  }
+  const {
+    username
+  } = req.query;
+  userData(username).then(ret => {
+    return res.send(JSON.parse(ret.data.toString()))
+  })
+}
