@@ -9,8 +9,8 @@ const renderStatsCard = (userInfo = {}, userStats = {}) => {
       genericStats
     } = userStats;
 
-    console.log(userInfo, userStats)\
-    return `<div>Owner Here</div>`
+    console.log(userInfo, userStats);
+    return `<div>Owner Here</div>`;
   };
   
   module.exports = renderStatsCard;
