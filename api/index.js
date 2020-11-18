@@ -1,20 +1,28 @@
 var urllib = require('urllib');
+const renderStatsCard = require("../src/card/renderR6statscard");
 
-function userData(username) {
-  return new Promise((resolve, reject) => {
-    urllib.request(`https://r6stats.com/api/player-search/${username}/pc`).then(function (result) {
-      resolve(result)
-    }).catch(function (err) {
-      reject(err)
+function userData(username, platform) {
+    return new Promise((resolve, reject) => {
+      urllib.request(`https://r6stats.com/api/player-search/${username}/${platform}`).then(function (result) {
+        resolve(result)
+      }).catch(function (err) {
+        reject(err)
+      });
     });
-  });
-}
+  }
 
 module.exports = (req, res) => {
-  const {
-    username
-  } = req.query;
-  userData(username).then(ret => {
-    return res.send(JSON.parse(ret.data.toString()))
-  })
-}
+    const {
+      username,
+      platform
+    } = req.query;
+    userData(username, platform).then(ret => {
+      const jsonUserData = JSON.parse(ret.data.toString());
+      return res.send(renderStatsCard({
+        username: username,
+        platform: platform,
+        avatar_url_146: jsonUserData.data[0].avatar_url_146,
+        level: jsonUserData.data[0].progressionStats.level
+      }, jsonUserData.data[0].genericStats))
+    })
+  }
