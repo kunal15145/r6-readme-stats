@@ -16,6 +16,7 @@ module.exports = (req, res) => {
       username,
       platform
     } = req.query;
+    res.setHeader("Content-Type","image/svg+xml");
     return res.send(renderStatsCard({
       username: username,
       platform: platform,
