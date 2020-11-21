@@ -16,13 +16,19 @@ module.exports = (req, res) => {
       username,
       platform
     } = req.query;
-    userData(username, platform).then(ret => {
-      const jsonUserData = JSON.parse(ret.data.toString());
-      return res.send(renderStatsCard({
-        username: username,
-        platform: platform,
-        avatar_url_146: jsonUserData.data[0].avatar_url_146,
-        level: jsonUserData.data[0].progressionStats.level
-      }, jsonUserData.data[0].genericStats))
-    })
+    return res.send(renderStatsCard({
+      username: username,
+      platform: platform,
+      avatar_url_146: undefined,
+      level: undefined
+    }, undefined))
+    // userData(username, platform).then(ret => {
+    //   const jsonUserData = JSON.parse(ret.data.toString());
+    //   return res.send(renderStatsCard({
+    //     username: username,
+    //     platform: platform,
+    //     avatar_url_146: jsonUserData.data[0].avatar_url_146,
+    //     level: jsonUserData.data[0].progressionStats.level
+    //   }, jsonUserData.data[0].genericStats))
+    // })
   }
